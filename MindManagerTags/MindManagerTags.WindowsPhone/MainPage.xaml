@@ -1,0 +1,83 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MindManagerTags"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MindManagerTags.Controls"
+    xmlns:dataModel="using:MindManagerTags.DataModel"
+    xmlns:common="using:MindManagerTags.Common"
+    x:Class="MindManagerTags.MainPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <common:BooleanToVisibilityInverseConverter x:Key="BooleanToVisibilityInverseConverter"/>
+    </Page.Resources>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="OpenFile" Label="Open Map" Command="{Binding BrowseMapCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- Map Title-->
+            <TextBlock Text="{Binding Map.Title}" Margin="20,0,12,0" FontSize="48" TextTrimming="CharacterEllipsis"/>
+
+        <StackPanel Grid.Row="1" Visibility="{Binding IsMapEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="20,0,0,0" >
+                <TextBlock   Text="The map does not contain any used tag." FontSize="36" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Center"/>
+            <HyperlinkButton Command="{Binding BrowseMapCommand}" HorizontalAlignment="Stretch" >
+                <TextBlock Text="Tap &quot;Open Map&quot; to open a new one." FontSize="36" TextWrapping="Wrap" TextAlignment="Center"/>
+            </HyperlinkButton>
+                
+            </StackPanel>
+
+
+            <ScrollViewer Grid.Row="2" Margin="0,29.5,0,0" Visibility="{Binding IsMapEmpty, Converter={StaticResource BooleanToVisibilityInverseConverter}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Tags panel -->
+                    <controls:WrapPanel Grid.Row="0" ItemsSource="{Binding Map.Tags}" Margin="10,0,0,0">
+                        <controls:WrapPanel.ItemTemplate>
+                            <DataTemplate>
+                                <ToggleButton Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}"  BorderThickness="0" Margin="10,0,0,0"  Background="{ThemeResource PhoneChromeBrush}" FontWeight="Normal"  />
+                            </DataTemplate>
+                        </controls:WrapPanel.ItemTemplate>
+                    </controls:WrapPanel>
+
+                    <!-- Any Marker checkbox-->
+                    <CheckBox Grid.Row="1" Content="Any Marker" IsChecked="{Binding Map.AnyMarker, Mode=TwoWay}" Margin="20,0,0,0" BorderThickness="2" />
+
+                    <!-- Topics list-->
+                    <ItemsControl Grid.Row="2" ItemsSource="{Binding Map.FilteredTopics}" Margin="20,0,0,0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" Margin="0,10,0,0" FontSize="30" TextWrapping="Wrap" FontWeight="Light" />
+                                    <TextBlock Text="{Binding Path}" Margin="0" FontSize="16" Foreground="{ThemeResource PhoneMidBrush}" TextWrapping="Wrap" FontWeight="Light" />
+                                    <TextBlock Text="{Binding NotesPreview}" Margin="0" FontSize="16" TextWrapping="Wrap" TextTrimming="WordEllipsis" MaxLines="3" FontWeight="Thin" Foreground="{ThemeResource PhoneLowBrush}"   />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+</Page>

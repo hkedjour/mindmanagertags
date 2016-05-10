@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>616c8792-e023-4212-a812-6512a0a81d73</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>MindManagerTags</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\BooleanToVisiblityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\FilePicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\FilesManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\IFilesManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\WrapPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\FiltredMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\MindMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\Tag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\Topic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainPageViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>
